@@ -1,0 +1,17 @@
+html,
+body {
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+@font-face {
+  font-family: "Poppin";
+  src: url("./assets/fonts/Poppin.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+p {
+  font-family: "Poppin", sans-serif;
+}

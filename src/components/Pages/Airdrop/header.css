@@ -1,0 +1,10 @@
+.wallet-adapter-button:hover{
+    background: linear-gradient(211deg, #BC813B, #FFE370, #BC813B) !important;
+    -webkit-text-fill-color: gray !important;
+}
+
+.wallet-adapter-button:active{
+    background: linear-gradient(211deg, #BC813B, #FFE370, #BC813B);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
