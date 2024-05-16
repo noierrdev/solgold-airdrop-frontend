@@ -46,8 +46,9 @@ const App=()=> {
           <SnackbarProvider>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Main />} />
-              <Route path="/airdrop" element={<Airdrop/>} />
+              <Route path="/" element={<Airdrop />} />
+              {/* <Route path="/airdrop" element={<Airdrop/>} /> */}
+              <Route path="*" element={<Airdrop />} />
             </Routes>
           </BrowserRouter>
           </SnackbarProvider>

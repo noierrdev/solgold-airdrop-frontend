@@ -42,6 +42,9 @@ const Main= () => {
             snackbar.enqueueSnackbar("You received airdropped tokens into your wallet.",{variant:"success"})
             setFinishTaskOpen(false);
 
+          }else{
+            snackbar.enqueueSnackbar(response.data.error,{variant:"error"})
+            setFinishTaskOpen(false)
           }
       })
     }
