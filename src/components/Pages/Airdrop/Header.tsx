@@ -171,7 +171,7 @@ import './header.css'
                 >
                 Connect Wallet
             </Button> */}
-            <WalletMultiButton className="walletButton"  style={{
+            {/* <WalletMultiButton className="walletButton"  style={{
               zIndex: 1,
               fontWeight: "bold",
               fontSize: "16px",
@@ -188,7 +188,7 @@ import './header.css'
               textAlign: "center",
               padding: "12px 25px",
               width: "fit-content",
-              cursor: "pointer"}} />
+              cursor: "pointer"}} /> */}
             </Box>
         </Box>
       </Box>
