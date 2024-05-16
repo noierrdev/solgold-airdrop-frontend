@@ -1,1 +1,1 @@
-export const BACKEND_URL="http://127.0.0.1:8001/api"
+export const BACKEND_URL="https://solana-airdrop-backend.onrender.com/api"
