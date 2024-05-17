@@ -61,8 +61,8 @@ export default (props:any)=>{
                     alignItems:"center",
                     justifyContent:"space-around"
                 }} >
-                {/* <MyButton text="Cancel" onClick={onClose} />
-                <MyButton text={`Back`} onClick={onBack} /> */}
+                <MyButton text="Cancel" onClick={onClose} />
+                {/* <MyButton text={`Back`} onClick={onBack} />  */}
                 <MyButton text={`Next`} onClick={()=>onNext(refInput.current?.value)} />
               </Box>
                 

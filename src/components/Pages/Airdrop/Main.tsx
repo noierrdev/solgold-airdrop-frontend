@@ -3,7 +3,7 @@ import { Box, Stack, Typography, Skeleton } from "@mui/material";
 import AnimationBox from "../../Animations";
 
 import solgold from "../../../assets/imgs/solgold.png";
-import gift_box from '../../../assets/imgs/Group_2599.png'
+import gift_box from '../../../assets/imgs/solgold.png'
 import FirstTask from "./FirstTask";
 import SecondTask from "./SecondTask";
 import MyButton from "./MyButton";
@@ -14,7 +14,7 @@ import axios from 'axios'
 import {BACKEND_URL} from '../../../Config'
 import { useSnackbar } from "notistack";
 import ReferralModal from "./ReferralModal";
-import {useParams,useLocation} from 'react-router-dom'
+import {useParams,useLocation,Link} from 'react-router-dom'
 import querystring from 'querystring'
 const Main= (props:any) => {
   const {onSucceed=()=>{}}=props;
@@ -98,7 +98,7 @@ const Main= (props:any) => {
       <Box
         id="Home"
         sx={{
-          backgroundColor: "#000000",
+          backgroundColor: "rgb(24, 23, 22)",
           p: {
             xs: "60px 25px 87px 25px",
             sm: "60px 69px 87px 69px",
@@ -116,7 +116,7 @@ const Main= (props:any) => {
         <Stack sx={{ flex: "1 1" }}>
           <Box
             sx={{
-              maxWidth: "631px",
+              maxWidth: "90vw",
               position: "relative",
               justifyContent: "space-around",
             }}
@@ -203,12 +203,14 @@ const Main= (props:any) => {
             Airdrop Time here
           </Typography> */}
           <MyButton onClick={()=>setFirstTaskOpen(true)} style={{padding:"24px 50px !important",borderRadius:"10px"}} text="Airdrop Time here" />
-          <Typography sx={{
+          <a href="https://www.solgold.org" target="_blank" style={{ textDecoration: 'none' }} ><Typography sx={{
             marginTop:"10vh",
-            fontSize:"2em"
+            fontSize:"2em",
+            color:"white"
           }} >
             www.solgold.org
           </Typography>
+          </a>
         </Stack>
         <Stack
           sx={{ flex: "1 1", justifyContent: "start", alignItems: "center" }}
@@ -216,7 +218,7 @@ const Main= (props:any) => {
           <img
             src={gift_box}
             alt=""
-            style={{ width: "140%", maxWidth: "800px" }}
+            style={{ width: "80%" }}
           />
         </Stack>
       </Box>
