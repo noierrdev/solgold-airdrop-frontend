@@ -8,7 +8,7 @@ const AirDropPage:FC=()=>{
         <Suspense fallback={<Skeleton/>} >
             <Box>
                 <Header/>
-                <Main />
+                <Main  />
             </Box>
         </Suspense>
     )

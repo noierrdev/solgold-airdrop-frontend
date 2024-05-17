@@ -16,7 +16,8 @@ import { useSnackbar } from "notistack";
 import ReferralModal from "./ReferralModal";
 import {useParams,useLocation} from 'react-router-dom'
 import querystring from 'querystring'
-const Main= () => {
+const Main= (props:any) => {
+  const {onSucceed=()=>{}}=props;
   const {referral}=useParams();
   const [loading, setLoading] = useState(true);
     const [FirstTaskOpen,setFirstTaskOpen]=useState(false);
@@ -60,20 +61,6 @@ const Main= () => {
           }
       })
     }
-
-    const {connection}=useConnection();
-    const wallet=useAnchorWallet()
-    useEffect(()=>{
-      if(wallet){
-        const provider=new AnchorProvider(connection,wallet,{commitment:"confirmed"});
-        setProvider(provider)
-      }
-    },[wallet])
-    useEffect(()=>{
-      if(Provider){
-        console.log(Provider)
-      }
-    },[Provider])
     const nextTask=(e:any)=>{
         setFirstTaskOpen(false);
         setFirstTaskValue(e);
@@ -98,6 +85,9 @@ const Main= () => {
       console.error("Failed to load image:", solgold);
     };
   }, [solgold]);
+  const Success=()=>{
+    setReferralOpen(false)
+  }
 
   if (loading) {
     return <Skeleton animation="wave" />;
@@ -233,7 +223,7 @@ const Main= () => {
       <FirstTask open={FirstTaskOpen}  onClose={()=>setFirstTaskOpen(false)}  onNext={(e:any)=>{nextTask(e)}} />
       <SecondTask open={SecondTaskOpen} onClose={()=>setSecondTaskOpen(false)} onBack={backTask} onNext={(e:any)=>{finishTask(e)}} />
       <Finishtask open={FinishTaskOpen} onClose={()=>setFinishTaskOpen(false)}  onNext={(e:any)=>claim(e)} />
-      <ReferralModal open={ReferralOpen} referral={Referral} onOk={()=>{setReferralOpen(false)}} />
+      <ReferralModal open={ReferralOpen} referral={Referral} onOk={()=>{Success()}} />
     </AnimationBox>
   );
 };
