@@ -13,14 +13,20 @@ import Finishtask from "./Finishtask";
 import axios from 'axios'
 import {BACKEND_URL} from '../../../Config'
 import { useSnackbar } from "notistack";
+import ReferralModal from "./ReferralModal";
+import {useParams,useLocation} from 'react-router-dom'
+import querystring from 'querystring'
 const Main= () => {
+  const {referral}=useParams();
   const [loading, setLoading] = useState(true);
     const [FirstTaskOpen,setFirstTaskOpen]=useState(false);
     const [SecondTaskOpen,setSecondTaskOpen]=useState(false);
     const [FirstTaskValue,setFirstTaskValue]=useState("");
     const [SecondTaskValue,setSecondTaskValue]=useState("");
     const [FinishTaskOpen, setFinishTaskOpen]=useState(false);
+    const [ReferralOpen,setReferralOpen]=useState(false);
     const [WalletAddress,setWalletAddress]=useState("");
+    const [Referral,setReferral]=useState<string|null>(null);
 
     const [Provider,setProvider]=useState<AnchorProvider|null>(null);
     const snackbar=useSnackbar();
@@ -33,6 +39,7 @@ const Main= () => {
       return axios.post(`${BACKEND_URL}/links`,{
         tweet:FirstTaskValue,
         telegram:SecondTaskValue,
+        referral:referral,
         wallet:e
       })
       .then(response=>{
@@ -41,10 +48,15 @@ const Main= () => {
           {
             snackbar.enqueueSnackbar("You received airdropped tokens into your wallet.",{variant:"success"})
             setFinishTaskOpen(false);
+            setReferral(response.data.referral)
+            setReferralOpen(true)
 
           }else{
             snackbar.enqueueSnackbar(response.data.error,{variant:"error"})
             setFinishTaskOpen(false)
+            setReferral(response.data.referral)
+            setReferralOpen(true)
+            
           }
       })
     }
@@ -221,6 +233,7 @@ const Main= () => {
       <FirstTask open={FirstTaskOpen}  onClose={()=>setFirstTaskOpen(false)}  onNext={(e:any)=>{nextTask(e)}} />
       <SecondTask open={SecondTaskOpen} onClose={()=>setSecondTaskOpen(false)} onBack={backTask} onNext={(e:any)=>{finishTask(e)}} />
       <Finishtask open={FinishTaskOpen} onClose={()=>setFinishTaskOpen(false)}  onNext={(e:any)=>claim(e)} />
+      <ReferralModal open={ReferralOpen} referral={Referral} onOk={()=>{setReferralOpen(false)}} />
     </AnimationBox>
   );
 };

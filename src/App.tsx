@@ -47,8 +47,9 @@ const App=()=> {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Airdrop />} />
+              <Route path="referral/:referral" element={<Airdrop />} />
               {/* <Route path="/airdrop" element={<Airdrop/>} /> */}
-              <Route path="*" element={<Airdrop />} />
+              {/* <Route path="*" element={<Airdrop />} /> */}
             </Routes>
           </BrowserRouter>
           </SnackbarProvider>

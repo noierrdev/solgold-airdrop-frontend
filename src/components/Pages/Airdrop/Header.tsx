@@ -12,19 +12,46 @@ import { useEffect,  useState } from "react";
 // import AnimationBox from "../../Animations";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui"; 
 import './header.css'
-
+import {useAnchorProvider} from '../../../hooks/useAnchorProvider'
+import  { getAssociatedTokenAddressSync, getOrCreateAssociatedTokenAccount,TOKEN_PROGRAM_ID,ASSOCIATED_TOKEN_PROGRAM_ID } from '@solana/spl-token'
+import { MINT } from "../../../Config";
+import { PublicKey } from "@solana/web3.js";
+import solgold_icon from '../../../assets/imgs/solgold_sm.png'
   const Header: React.FC = () => {
     // const [isOpen, setIsOpen] = useState(false);
     // const [activeMenu, setActiveMenu] = useState<string>("Home");
     // const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     // const [menuCollapse, setMenuCollapse] = useState<boolean>(false);
+    const [AccountInfo,setAccountInfo]=useState<any>(null);
+    const [Provider,setProvider]=useState<any>(null);
   
+    
     const handleMenuSelect = (location: string) => {
       // setActiveMenu(location);
       if (location === "Market Trend") window.location.replace(`/#Market`);
       window.location.replace(`/#${location}`);
     };
-  
+    const provider=useAnchorProvider();
+    const mint=new PublicKey(MINT);
+    
+    useEffect(()=>{
+      if(AccountInfo){
+        console.log("accountinfo",AccountInfo)
+      }
+    },[AccountInfo])
+    const getTokenInfo=async ()=>{
+      const tokenAccount= getAssociatedTokenAddressSync(mint,provider.wallet.publicKey,true,TOKEN_PROGRAM_ID,ASSOCIATED_TOKEN_PROGRAM_ID);
+      const tokenAccountInfo=await provider.connection.getParsedAccountInfo(tokenAccount);
+      console.log('tokenaccount',tokenAccount)
+      setAccountInfo(tokenAccountInfo)
+    }
+    useEffect(()=>{
+      if(provider.wallet.publicKey){
+        getTokenInfo()
+      }else{
+        setAccountInfo(null)
+      }
+    },[provider.wallet.publicKey])
     // useEffect(() => {
     //   const handleResize = () => {
     //     setScreenWidth(window.innerWidth);
@@ -139,7 +166,7 @@ import './header.css'
                 
             </Box>
           )} */}
-            <Box sx={{paddingX:1}} >
+            <Box sx={{paddingX:1,display:"flex",alignItems:"center"}} >
             {/* <Button 
             sx={{
                 zIndex: 1,
@@ -171,7 +198,14 @@ import './header.css'
                 >
                 Connect Wallet
             </Button> */}
-            {/* <WalletMultiButton className="walletButton"  style={{
+            {AccountInfo&&(
+              <>
+              <img src={solgold_icon} style={{width:"2vw",marginRight:10}} />
+              <h1 style={{color:"#FFE370",marginRight:10}} >{AccountInfo.value.data.parsed.info.tokenAmount.uiAmount}</h1>
+              </>
+            )}
+            
+            <WalletMultiButton className="walletButton"  style={{
               zIndex: 1,
               fontWeight: "bold",
               fontSize: "16px",
@@ -188,7 +222,7 @@ import './header.css'
               textAlign: "center",
               padding: "12px 25px",
               width: "fit-content",
-              cursor: "pointer"}} /> */}
+              cursor: "pointer"}} />
             </Box>
         </Box>
       </Box>
