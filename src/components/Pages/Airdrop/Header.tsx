@@ -200,7 +200,7 @@ import solgold_icon from '../../../assets/imgs/solgold_sm.png'
             </Button> */}
             {AccountInfo&&(
               <>
-              <img src={solgold_icon} style={{width:"2vw",marginRight:10}} />
+              <img src={solgold_icon} style={{width:"10%",marginRight:10}} />
               <h1 style={{color:"#FFE370",marginRight:10}} >{AccountInfo.value?(AccountInfo.value.data?.parsed?.info?.tokenAmount?.uiAmount):0}</h1>
               </>
             )}

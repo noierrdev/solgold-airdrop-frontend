@@ -2,8 +2,7 @@ import { TextField } from "@mui/material"
 import './textfield.css'
 import { useState } from "react";
 export default function(props:any){
-    const {style={},placeholder="",inputRef={}}=props;
-    const [Value,setValue]=useState("")
+    const {style={},placeholder="",inputRef={},defaultValue=""}=props;
     return (
         <TextField
         variant="outlined"
@@ -17,8 +16,7 @@ export default function(props:any){
             style:{color:"#FFE370"}
         }}
         inputRef={inputRef}
-        onChange={e=>setValue(e.target.value)}
-        defaultValue={Value}
+        defaultValue={defaultValue}
         
         />
     )

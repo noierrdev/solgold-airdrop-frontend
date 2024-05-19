@@ -16,6 +16,8 @@ import { useSnackbar } from "notistack";
 import ReferralModal from "./ReferralModal";
 import {useParams,useLocation,Link} from 'react-router-dom'
 import querystring from 'querystring'
+import { useAnchorProvider } from "../../../hooks/useAnchorProvider";
+import RecaptchaModal from "./RecaptchaModal";
 const Main= (props:any) => {
   const {onSucceed=()=>{}}=props;
   const {referral}=useParams();
@@ -28,8 +30,10 @@ const Main= (props:any) => {
     const [ReferralOpen,setReferralOpen]=useState(false);
     const [WalletAddress,setWalletAddress]=useState("");
     const [Referral,setReferral]=useState<string|null>(null);
+    const [ReCapTchaOpen,setReCapTchaOpen]=useState(false);
 
     const [Provider,setProvider]=useState<AnchorProvider|null>(null);
+    const provider=useAnchorProvider();
     const snackbar=useSnackbar();
 
     const claim=(e:any)=>{
@@ -91,6 +95,10 @@ const Main= (props:any) => {
 
   if (loading) {
     return <Skeleton animation="wave" />;
+  }
+  const toStartTask=()=>{
+    setReCapTchaOpen(false);
+    setFirstTaskOpen(true)
   }
 
   return (
@@ -202,7 +210,7 @@ const Main= (props:any) => {
           >
             Airdrop Time here
           </Typography> */}
-          <MyButton onClick={()=>setFirstTaskOpen(true)} style={{padding:"24px 50px !important",borderRadius:"10px"}} text="Airdrop Time here" />
+          <MyButton onClick={()=>setReCapTchaOpen(true)} style={{padding:"24px 50px !important",borderRadius:"10px"}} text="Airdrop Time here" />
           <a href="https://www.solgold.org" target="_blank" style={{ textDecoration: 'none' }} ><Typography sx={{
             marginTop:"10vh",
             fontSize:"2em",
@@ -222,9 +230,10 @@ const Main= (props:any) => {
           />
         </Stack>
       </Box>
+      <RecaptchaModal open={ReCapTchaOpen} onOk={()=>toStartTask()} />
       <FirstTask open={FirstTaskOpen}  onClose={()=>setFirstTaskOpen(false)}  onNext={(e:any)=>{nextTask(e)}} />
       <SecondTask open={SecondTaskOpen} onClose={()=>setSecondTaskOpen(false)} onBack={backTask} onNext={(e:any)=>{finishTask(e)}} />
-      <Finishtask open={FinishTaskOpen} onClose={()=>setFinishTaskOpen(false)}  onNext={(e:any)=>claim(e)} />
+      <Finishtask open={FinishTaskOpen} onClose={()=>setFinishTaskOpen(false)}  onNext={(e:any)=>claim(e)} wallet={provider?.wallet?.publicKey?.toString()} />
       <ReferralModal open={ReferralOpen} referral={Referral} onOk={()=>{Success()}} />
     </AnimationBox>
   );

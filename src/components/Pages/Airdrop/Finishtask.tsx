@@ -7,7 +7,7 @@ import MyTextField from "./MyTextField";
 import { useEffect, useRef, useState } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 export default (props:any)=>{
-    const {open,onClose=()=>{},onNext=()=>{},onBack=()=>{}}=props;
+    const {open,onClose=()=>{},onNext=()=>{},onBack=()=>{},wallet=""}=props;
     const [Waiting,setWaiting]=useState(false);
     const refInput=useRef<HTMLInputElement|null>(null);
     const toNext=()=>{
@@ -48,7 +48,7 @@ export default (props:any)=>{
                         display:"flex",
                         justifyContent:"center",
                     }} >
-                        <MyTextField style={{width:"60%"}} inputRef={refInput} placeholder={'Wallet address'} />
+                        <MyTextField style={{width:"60%"}} inputRef={refInput} placeholder={'Wallet address'} defaultValue={wallet} />
                     </Box>
                 </DialogContent>
                 <DialogActions>
